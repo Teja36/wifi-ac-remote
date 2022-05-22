@@ -72,7 +72,7 @@ void setup() {
   Serial.println("WiFi connected..!");
   Serial.print("Got IP: ");  Serial.println(WiFi.localIP());
 
-  server.on("/", handle_OnConnect);
+//  server.on("/", handle_OnConnect);/
   server.on("/OnOff", handle_OnOff);
   server.on("/Swing", handle_Swing);
   server.on("/JetCool", handle_JetCool);
@@ -82,6 +82,7 @@ void setup() {
 
   server.begin();
   Serial.println("HTTP server started");
+  handle_OnConnect();
 }
 
 void loop() {
