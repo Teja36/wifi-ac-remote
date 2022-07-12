@@ -72,7 +72,7 @@ void setup() {
   Serial.println("WiFi connected..!");
   Serial.print("Got IP: ");  Serial.println(WiFi.localIP());
 
-//  server.on("/", handle_OnConnect);/
+  server.on("/", handle_OnConnect);/
   server.on("/OnOff", handle_OnOff);
   server.on("/Swing", handle_Swing);
   server.on("/JetCool", handle_JetCool);
@@ -82,19 +82,22 @@ void setup() {
 
   server.begin();
   Serial.println("HTTP server started");
-  handle_OnConnect();
+  init();
 }
 
 void loop() {
   server.handleClient();
 }
 
-void handle_OnConnect() {
-  Serial.println("Ready");
+void init() {
   if (ACstatus == false) {
     ACstatus = true;
     irsend.sendRaw(rawOn, 59, 38);  // Send a raw data capture at 38kHz.
     Serial.println("AC turend On.");}
+}
+
+void handle_OnConnect() {
+  Serial.println("Ready");
   server.send(200, "text/html", MAIN_page);
 }
 
